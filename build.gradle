@@ -1,0 +1,32 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'application'
+
+mainClassName = "website.steiner.lombok.Main"
+
+idea {
+    module {
+        excludeDirs = [buildDir, file('.gradle'), file('bin')]
+    }
+
+    project {
+        ipr.withXml { provider ->
+            def node = provider.asNode()
+
+            def compilerConfig = node.component.find { it.'@name' == 'CompilerConfiguration'}
+            compilerConfig.annotationProcessing[0].'@enabled' = 'true'
+        }
+    }
+}
+
+repositories {
+     mavenCentral()
+}
+
+dependencies {
+    testCompile group: "junit", name: "junit", version: "4.11"
+    testCompile group: "org.mockito", name: "mockito-all", version: "1.9.5"
+
+    compile "org.projectlombok:lombok:1.16.2"
+}
