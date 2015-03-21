@@ -1,6 +1,5 @@
 package website.steiner.lombok;
 
-import junit.framework.TestCase;
 import org.junit.Test;
 
 import java.time.LocalDate;
