@@ -15,7 +15,11 @@ idea {
             def node = provider.asNode()
 
             def compilerConfig = node.component.find { it.'@name' == 'CompilerConfiguration'}
-            compilerConfig.annotationProcessing[0].'@enabled' = 'true'
+            compilerConfig.annotationProcessing[0].replaceNode {
+                annotationProcessing {
+                    profile(default: true, name: 'Default', useClasspath: 'true', enabled: true)
+                }
+            }
         }
     }
 }
